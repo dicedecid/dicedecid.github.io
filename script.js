@@ -6,12 +6,12 @@ const refresh = document.getElementById("refresh");
 
 // API urls
 const textApiUrl = "https://api.quotable.io/random";
-const audioApiUrl = "https://api.npr.org/audio/v2/programs/programs.json?apiKey=";
+const audioApiUrl = "https://api.jamendo.com/v3.0/tracks/?client_id=80ece56c&limit=1&random=true";
 const imageApiUrl = "https://picsum.photos/200";
 const videoApiUrl = "https://api.pexels.com/videos/popular?per_page=1&page=1";
 
 // API keys/tokens
-const audioApiKey = "YOUR_AUDIO_API_KEY";
+const audioApiKey = "eec577ed8d6ab0332ac662c47255b440";
 
 // Refresh function
 function refreshContent() {
