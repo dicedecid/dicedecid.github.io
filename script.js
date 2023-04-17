@@ -1,45 +1,68 @@
-const refreshButton = document.getElementById("refresh-button");
+const video = document.getElementById("video");
+const text = document.getElementById("text");
+const audio = document.getElementById("audio");
+const image = document.getElementById("image");
+const refresh = document.getElementById("refresh");
 
-refreshButton.addEventListener("click", function() {
+// API urls
+const textApiUrl = "https://api.quotable.io/random";
+const audioApiUrl = "https://api.npr.org/audio/v2/programs/programs.json?apiKey=";
+const imageApiUrl = "https://picsum.photos/200";
+const videoApiUrl = "https://api.pexels.com/videos/popular?per_page=1&page=1";
 
-	// Get random audio from Free Music Archive
-	fetch("https://freemusicarchive.org/featured.json")
-	  .then(response => response.json())
-	  .then(data => {
-	    const audio = document.getElementById("audio");
-	    const audioUrl = data.audios[Math.floor(Math.random() * data.audios.length)].file;
-	    audio.src = audioUrl;
-	  })
-	  .catch(error => console.log(error));
+// API keys/tokens
+const audioApiKey = "YOUR_AUDIO_API_KEY";
+const lastfmApiKey = "YOUR_LASTFM_API_KEY";
 
-	// Get random image from Unsplash
-	fetch("https://source.unsplash.com/random")
-	  .then(response => {
-	    const image = document.getElementById("image");
-	    image.src = response.url;
-	  })
-	  .catch(error => console.log(error));
+// Refresh function
+function refreshContent() {
+  // Get random text
+  fetch(textApiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      text.innerHTML = data.content;
+    });
 
-	// Get random video from Coverr
-	fetch("https://api.coverr.co/videos/random")
-	  .then(response => response.json())
-	  .then(data => {
-	    const video = document.getElementById("video");
-	    const videoUrl = data.mp4;
-	    video.src = videoUrl;
-	  })
-	  .catch(error => console.log(error));
+  // Get random audio
+  fetch(audioApiUrl + audioApiKey)
+    .then((response) => response.json())
+    .then((data) => {
+      const items = data.items;
+      const randomIndex = Math.floor(Math.random() * items.length);
+      const audioUrl = items[randomIndex].audio[0].format.mp4.$text;
+      audio.src = audioUrl;
+    });
 
-	// Get random text from Bacon Ipsum
-	fetch("https://baconipsum.com/api/?type=all-meat&sentences=1")
-	  .then(response => response.json())
-	  .then(data => {
-	    const text = document.getElementById("text");
-	    text.innerText = data[0];
-	  })
-	  .catch(error => console.log(error));
+  // Get random image
+  image.src = imageApiUrl + "?random=" + Math.random();
 
+  // Get random video
+  fetch(videoApiUrl, {
+      headers: {
+        Authorization: "Bearer YOUR_PEXELS_API_KEY",
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      const videoUrl = data.videos[0].video_files[0].link;
+      video.src = videoUrl;
+    });
 
-});
+  // Get random artist from Last.fm API and update background color
+  fetch("https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=" + lastfmApiKey + "&format=json")
+    .then((response) => response.json())
+    .then((data) => {
+      const artists = data.artists.artist;
+      const randomIndex = Math.floor(Math.random() * artists.length);
+      const randomArtist = artists[randomIndex].name;
+      document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+    });
+}
+
+// Initial content load
+refreshContent();
+
+// Add event listener for refresh button
+refresh.addEventListener("click", refreshContent);
 
 
