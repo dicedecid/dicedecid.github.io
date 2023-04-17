@@ -12,7 +12,6 @@ const videoApiUrl = "https://api.pexels.com/videos/popular?per_page=1&page=1";
 
 // API keys/tokens
 const audioApiKey = "YOUR_AUDIO_API_KEY";
-const lastfmApiKey = "YOUR_LASTFM_API_KEY";
 
 // Refresh function
 function refreshContent() {
@@ -48,15 +47,14 @@ function refreshContent() {
       video.src = videoUrl;
     });
 
-  // Get random artist from Last.fm API and update background color
-  fetch("https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=" + lastfmApiKey + "&format=json")
-    .then((response) => response.json())
-    .then((data) => {
-      const artists = data.artists.artist;
-      const randomIndex = Math.floor(Math.random() * artists.length);
-      const randomArtist = artists[randomIndex].name;
-      document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
-    });
+ //get audio
+fetch('https://api.jamendo.com/v3.0/tracks/?client_id=80ece56c&limit=1&random=true')
+  .then(response => response.json())
+  .then(data => {
+    const track = data.results[0];
+    const audioElement = document.getElementById('audio');
+    audioElement.src = track.audio;
+  });
 }
 
 // Initial content load
