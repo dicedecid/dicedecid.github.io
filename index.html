@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Diced</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="UTF-8">
+  <title>Diced</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="quadrant-container">
-		<div class="quadrant">
-			<video src="" controls></video>
-		</div>
-		<div class="quadrant">
-			<p></p>
-		</div>
-		<div class="quadrant">
-			<audio src="" controls></audio>
-		</div>
-		<div class="quadrant">
-			<img src="" alt="">
-		</div>
-	</div>
-	<div class="button-container">
-		<button id="refresh-button">Refresh</button>
-	</div>
-	<script src="script.js"></script>
+  <div class="container">
+    <div class="box">
+      <video id="video" width="400" height="300" autoplay loop muted></video>
+    </div>
+    <div class="box">
+      <div id="text"></div>
+    </div>
+    <div class="box">
+      <audio id="audio" controls></audio>
+    </div>
+    <div class="box">
+      <img id="image" alt="random image">
+    </div>
+    <div class="button">
+      <button onclick="refreshContent()">REFRESH</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
+
+
