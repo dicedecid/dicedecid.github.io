@@ -1,68 +1,38 @@
-const video = document.getElementById("video");
-const text = document.getElementById("text");
-const audio = document.getElementById("audio");
-const image = document.getElementById("image");
-const refresh = document.getElementById("refresh");
+function getRandomContent() {
+    // Get random image from Unsplash API
+    fetch('https://source.unsplash.com/random')
+        .then(response => {
+            document.getElementById('random-image').src = response.url;
+        });
 
-// API urls
-const textApiUrl = "https://api.quotable.io/random";
-const audioApiUrl = "https://api.npr.org/audio/v2/programs/programs.json?apiKey=";
-const imageApiUrl = "https://picsum.photos/200";
-const videoApiUrl = "https://api.pexels.com/videos/popular?per_page=1&page=1";
+    // Get random audio from FreeSound API
+    fetch('https://freesound.org/apiv2/search/text/?query=random&token=YOUR_API_KEY_HERE')
+        .then(response => response.json())
+        .then(data => {
+            const previewUrl = data.results[0].previews['preview-hq-mp3'];
+            document.getElementById('random-audio').src = previewUrl;
+        });
 
-// API keys/tokens
-const audioApiKey = "YOUR_AUDIO_API_KEY";
-const lastfmApiKey = "YOUR_LASTFM_API_KEY";
+    // Get random text from Lorem Ipsum API
+    fetch('https://loripsum.net/api')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('random-text').innerHTML = data;
+        });
 
-// Refresh function
-function refreshContent() {
-  // Get random text
-  fetch(textApiUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      text.innerHTML = data.content;
-    });
-
-  // Get random audio
-  fetch(audioApiUrl + audioApiKey)
-    .then((response) => response.json())
-    .then((data) => {
-      const items = data.items;
-      const randomIndex = Math.floor(Math.random() * items.length);
-      const audioUrl = items[randomIndex].audio[0].format.mp4.$text;
-      audio.src = audioUrl;
-    });
-
-  // Get random image
-  image.src = imageApiUrl + "?random=" + Math.random();
-
-  // Get random video
-  fetch(videoApiUrl, {
-      headers: {
-        Authorization: "Bearer YOUR_PEXELS_API_KEY",
-      },
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      const videoUrl = data.videos[0].video_files[0].link;
-      video.src = videoUrl;
-    });
-
-  // Get random artist from Last.fm API and update background color
-  fetch("https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=" + lastfmApiKey + "&format=json")
-    .then((response) => response.json())
-    .then((data) => {
-      const artists = data.artists.artist;
-      const randomIndex = Math.floor(Math.random() * artists.length);
-      const randomArtist = artists[randomIndex].name;
-      document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
-    });
+    // Get random video from YouTube API
+    fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=random&type=video&key=YOUR_API_KEY_HERE')
+        .then(response => response.json())
+        .then(data => {
+            const videoId = data.items[0].id.videoId;
+            document.getElementById('random-video').src = `https://www.youtube.com/embed/${videoId}`;
+        });
 }
 
-// Initial content load
-refreshContent();
+// Get initial random content on page load
+getRandomContent();
 
-// Add event listener for refresh button
-refresh.addEventListener("click", refreshContent);
-
-
+// Add event listener to refresh button
+document.getElementById('refresh-button').addEventListener('click', () => {
+    getRandomContent();
+});
