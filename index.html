@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Refreshable Quadrants</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="quadrant">
+			<video width="100%" height="auto" controls>
+  				<source src="video.mp4" type="video/mp4">
+  				Your browser does not support the video tag.
+			</video>
+		</div>
+		<div class="quadrant">
+			<p>Text goes here</p>
+		</div>
+		<div class="quadrant">
+			<audio controls>
+				<source src="audio.mp3" type="audio/mp3">
+				Your browser does not support the audio element.
+			</audio>
+		</div>
+		<div class="quadrant">
+			<img src="image.jpg" alt="Image">
+		</div>
+		<div class="button">
+			<button onclick="refresh()">Refresh</button>
+		</div>
+	</div>
+
+	<script>
+		function refresh() {
+			document.querySelector('video').src = 'new_video.mp4';
+			document.querySelector('audio').src = 'new_audio.mp3';
+			document.querySelector('img').src = 'new_image.jpg';
+			document.querySelector('p').textContent = 'New text';
+		}
+	</script>
+</body>
+</html>
