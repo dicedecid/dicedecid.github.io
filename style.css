@@ -14,27 +14,29 @@ body {
 	margin: 0 auto;
 }
 
+.quadrant-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	grid-gap: 20px;
+}
+
 .quadrant {
-	flex-basis: calc(50% - 20px);
-	background-color: #fff;
-	box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-	padding: 20px;
-	margin-bottom: 20px;
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.quadrant video,
+.quadrant audio,
+.quadrant img {
+	max-width: 100%;
+	height: auto;
 }
 
 .button {
 	flex-basis: 100%;
 	text-align: center;
 	margin-top: 20px;
-}
-
-button {
-	background-color: #007bff;
-	color: #fff;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	cursor: pointer;
 }
 
 button:hover {
