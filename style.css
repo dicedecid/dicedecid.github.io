@@ -24,7 +24,7 @@ body {
     margin-top: 20px;
     padding: 10px 20px;
     border: none;
-    background-color: #333;
+    background-color: #474E5F;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -32,5 +32,5 @@ body {
 }
 
 #refresh-button:hover {
-    background-color: #555;
+    background-color: #2B303D;
 }
