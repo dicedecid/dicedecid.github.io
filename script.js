@@ -38,8 +38,8 @@ function refreshContent() {
   // Get random video
   fetch(videoApiUrl, {
       headers: {
-        Authorization: "cIx05540qpxd4HTZGFFdoheqhEMqAuzdBveuwO5WBhZNb90uzn0v7bZO",
-      },
+           Authorization: "Bearer cIx05540qpxd4HTZGFFdoheqhEMqAuzdBveuwO5WBhZNb90uzn0v7bZO"
+      }
     })
     .then((response) => response.json())
     .then((data) => {
