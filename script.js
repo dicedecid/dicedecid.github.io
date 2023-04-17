@@ -1,10 +1,6 @@
 const refreshButton = document.getElementById("refresh-button");
 
 refreshButton.addEventListener("click", function() {
-	const video = document.querySelector(".quadrant video");
-	const audio = document.querySelector(".quadrant audio");
-	const image = document.querySelector(".quadrant img");
-	const text = document.querySelector(".quadrant p");
 
 	// Get random audio from Free Music Archive
 	fetch("https://freemusicarchive.org/featured.json")
